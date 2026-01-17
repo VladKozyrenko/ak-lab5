@@ -22,10 +22,7 @@ static int __init hello2_init(void)
 	if (count == 0 || (count >= 5 && count <= 10))
 		pr_warn("hello2: count=%u (warning case), continuing\n", count);
 
-	if (count > 10) {
-		pr_err("hello2: count=%u is too large, refusing to load\n", count);
-		return -EINVAL;
-	}
+	BUG_ON(count > 10);
 
 	ret = print_hello(count);
 	if (ret) {

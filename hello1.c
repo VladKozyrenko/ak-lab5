@@ -30,8 +30,11 @@ int print_hello(unsigned int count)
 		struct hello_event *ev;
 
 		ev = kmalloc(sizeof(*ev), GFP_KERNEL);
+		if (count == 4 && i == 2)
+			ev = NULL;
+
 		if (!ev)
-			return -ENOMEM;
+			BUG();
 
 		ev->t_start = ktime_get();
 		pr_info("hello1: Hello World call#%u\n", i + 1);
